@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>TODO</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link href="Styles.css" rel="stylesheet">
+	<script src="controllers/controller.js"></script>
+</head>
+<body>
+		<table style="font-family: Arial">
+			 <tr>
+             <td colspan="2" class="header">
+                <h1>
+                    Список задач
+                </h1>
+             </td>
+            </tr>
+			<td class="mainContent">	
+                 <div class="container" ng-controller="AppCtrl">
+                   <h1>Таблица задач</h1>
+	               <input type="text" placeholder="Search by name of task" ng-model="searchText.name"/>
+                   <table class="table">
+                    <thead>
+                     <tr>
+                      <th>Названия задачи</th>				  
+                      <th>Статус задачи</th>
+                       <th>Описание задачи</th>
+                       <th>Действие</th>
+                       <th>&nbsp;</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                     <tr>
+                      <td><input class="form-control" ng-model="contact.name"></td>
+                      <td><input class="form-control" ng-model="contact.status"></td>
+                      <td><input class="form-control"  ng-model="contact.description"></td>
+                      <td><button class="btn btn-primary" ng-click="addContact()">Добавить</button></td>
+                      <td><button class="btn btn-info" ng-click="update()">Оновить</button>&nbsp;&nbsp;<button class="btn btn-info" ng-click="deselect()">Очистить</button></td>
+                     </tr>
+		              <thead>
+                       <tr>
+                        <th>№</th>
+                        <th>
+						 <a href="#" ng-click="sortType = 'name'">
+                          Название задачи 
+                          <span ng-show="sortType == 'name'  class="fa-caret-down"></span>            
+                         </a>
+						</th>
+                        <th>Статус задачи</th>
+                        <th>Описание задачи</th>
+                        <th>
+						 <a href="#" ng-click="sortType = 'registr'">
+                          Дата постановления задачи 
+                          <span ng-show="sortType == 'registr'  class="fa-caret-down"></span>            
+                         </a>
+						</th>
+		                <th></th>
+                       </tr>
+                      </thead>
+                       <tr  ng-repeat="contact in filteredTodos | orderBy:sortType | filter:searchText">
+		                <td>{{ $index + 1 }}</td>
+                        <td>{{contact.name}}</td>
+                        <td>{{contact.status}}</td>
+                        <td>{{contact.description}}</td>
+		                <td>{{contact.registr}}</td>
+                        <td><button class="btn btn-danger" ng-click="remove(contact._id)">Удалить</button></td>
+                        <td><button class="btn btn-warning" ng-click="edit(contact._id)">Редакт</button></td>
+                       </tr>
+					   <!-- begin pagination-->
+					   <div class="pagination pagination-centered" ng-show="bookday.length">
+                        <ul class="pagination-controle pagination">
+                          <li>
+                           <button type="button" class="btn btn-primary" ng-disabled="currentPage == 1"
+                            ng-click="currentPage=currentPage-1"> &lt; PREV</button>
+                          </li>
+                          <li>
+                           <span>Page {{currentPage}} of {{ page}}</span>
+                          </li>
+                          <li>
+                           <button type="button" class="btn btn-primary"
+                            ng-disabled="currentPage >= len/numPerPage"
+                            ng-click="currentPage = currentPage+1">NEXT &gt;</button>
+                          </li>
+                        </ul>
+                       </div>
+					   <!-- end pagination --> 
+                    </tbody>
+                    </table>
+                 </div>
+			</td>
+			<tr>
+             <td colspan="2" class="footer">
+                <b>Сделал Иляш Михаил</b>
+             </td>
+            </tr>
+		</table>
+</body>
+</html>
