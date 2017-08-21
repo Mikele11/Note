@@ -51,5 +51,10 @@ app.put('/bookday/:id', function (req, res) {
   );
 });
 
-app.listen(3000);
-console.log("Server running on port 3000");
+//app.listen(3000);
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+app.listen(server_port, server_host, function() {
+    console.log('Listening on port %d', server_port);
+});
+console.log("Server running");
