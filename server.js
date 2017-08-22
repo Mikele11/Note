@@ -1,23 +1,11 @@
 var express = require('express');
 var app = express();
-//var mongojs = require('mongojs');
+var mongojs = require('mongojs');
 var bodyParser = require('body-parser');
-//var db = mongojs('bookday', ['bookday']);
+var db = mongojs('bookday', ['bookday']);
 
 
-var db;
-const MongoClient = require('mongojs').MongoClient;
-const ObjectID = require('mongojs').ObjectID;
-
-MongoClient.connect('mongodb://bookday:112358@ds153413.mlab.com:53413/bookday',function(err,db){
-	if (err){
-		console.log(err);
-	}else{
-		db = database;
-		console.log('db connect');
-	}
-});
-
+mongojs.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bookday')
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
