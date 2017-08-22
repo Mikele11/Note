@@ -1,8 +1,22 @@
 var express = require('express');
 var app = express();
-var mongojs = require('mongojs');
-var db = mongojs('bookday', ['bookday']);
+//var mongojs = require('mongojs');
 var bodyParser = require('body-parser');
+//var db = mongojs('bookday', ['bookday']);
+
+
+var db;
+const MongoClient = require('mongojs').MongoClient;
+const ObjectID = require('mongojs').ObjectID;
+
+MongoClient.connect('mongodb://bookday:112358@ds153413.mlab.com:53413/bookday',function(err,db){
+	if (err){
+		console.log(err);
+	}else{
+		db = database;
+		console.log('db connect');
+	}
+});
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -52,6 +66,7 @@ app.put('/bookday/:id', function (req, res) {
 });
 
 //app.listen(3000);
+
 var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
 app.listen(server_port, server_host, function() {
